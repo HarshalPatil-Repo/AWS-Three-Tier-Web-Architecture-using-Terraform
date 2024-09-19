@@ -66,4 +66,7 @@ sudo systemctl enable nginx
 ```bash
 sudo systemctl status nginx
 ```
-11. We have to modify our nginx.conf file in our frontend servers after executing terraform code and infrastructure creation at the end
+11. Web Tier Server is ready, now create golden image of this server. Wait for image to become available, after that you can safely terminate the instance.
+    * ![image](https://github.com/user-attachments/assets/cd1e9b88-9583-446d-9123-f0f0277266e6)
+    * ![image](https://github.com/user-attachments/assets/f3efaec2-a164-4a22-bee2-197470ab4add)
+12. We have to modify our nginx.conf file in our frontend servers after executing terraform code and infrastructure creation at the end
