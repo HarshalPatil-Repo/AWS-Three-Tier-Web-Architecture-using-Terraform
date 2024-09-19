@@ -114,3 +114,23 @@ sudo yum install https://dev.mysql.com/get/mysql57-community-release-el7-11.noar
 sudo yum install mysql -y
 ``` 
 11. Now create image from this instance
+
+## Terraform Execution
+
+1. Clone 'AWS-Three-Tier-Web-Architecture-using-Terraform' respository into local directory
+2. Open code in code editor of your choice. (Recommended VS Code)
+Make necessary changes in 'terraform.tfvars' file. Change resource names and parameters according to your choice. **Make sure to give same name to IAM role and AMI's which you have created in your AWS account**
+
+3. Run below command, this will download required provider plugins and modules
+```bash
+terraform init
+```
+4. After that run below command, this will provide brief information of resources to be created
+```bash
+terraform plan
+```
+5. Then run bewlo command, it will create planned resources in AWS
+```bash
+terraform apply -auto-approve
+```
+> Infrastructure creation will take around 15-20 minutes
