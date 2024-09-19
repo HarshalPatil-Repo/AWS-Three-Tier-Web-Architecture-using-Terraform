@@ -12,6 +12,13 @@ In this architecture, a public-facing Application Load Balancer forwards client 
   git clone https://github.com/aws-samples/aws-three-tier-web-architecture-workshop.git
 
 ```
-2. Create S3 bucket and upload above code into bucket same like below format
+3. Create an IAM role for EC2 with below policies
+* AmazonSSMManagedInstanceCore (For using Systems Session Manager to securely connect to our instances without SSH keys through the AWS console)
+* AmazonS3ReadOnlyAccess (To download our code from S3)
+  * ![image](https://github.com/user-attachments/assets/6385c254-ba18-4ad0-846d-89ea2089ded7)
+  * ![image](https://github.com/user-attachments/assets/de1122c5-e48c-4087-835f-bf3576c0e08c)
+  * ![image](https://github.com/user-attachments/assets/d0b6e361-b574-4a61-b595-1ab347f11cae)
+  * ![image](https://github.com/user-attachments/assets/a9dc7184-5998-40e6-8ff2-b5016360983b)
+5. Create S3 bucket and upload above code into bucket same like below format
 ![image](https://github.com/user-attachments/assets/2fb83586-b385-4f5c-a69b-475c889fca0b)
-4. Create two Golden Images for Frontend & Backend server by using AWS Management Console. We need this images while executing terraform code. Please check steps below 
+6. Create two Golden Images for Frontend & Backend server by using AWS Management Console. We need this images while executing terraform code. Please check steps below 
