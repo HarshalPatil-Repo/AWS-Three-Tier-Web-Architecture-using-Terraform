@@ -233,6 +233,7 @@ terraform destroy -auto-approve
 ```
 > this will take 15-20 min
 2. Go to AWS Management Console > EC2 Section > AMI's Section. Now delete the created AMI's. Also go to the snapshots section and delete snapshots if any.
+3. You can also delete created IAM role by navigating to: IAM > Roles
 
 
 
