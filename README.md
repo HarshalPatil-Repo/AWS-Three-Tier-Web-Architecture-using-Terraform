@@ -66,4 +66,4 @@ sudo systemctl enable nginx
 ```bash
 sudo systemctl status nginx
 ```
-11. We have to modify our nginx.conf file in our frontend servers after executing terraform code and infrastructure creation
+11. We have to modify our nginx.conf file in our frontend servers after executing terraform code and infrastructure creation at the end
