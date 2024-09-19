@@ -70,3 +70,47 @@ sudo systemctl status nginx
     * ![image](https://github.com/user-attachments/assets/cd1e9b88-9583-446d-9123-f0f0277266e6)
     * ![image](https://github.com/user-attachments/assets/f3efaec2-a164-4a22-bee2-197470ab4add)
 12. We have to modify our nginx.conf file in our frontend servers after executing terraform code and infrastructure creation at the end
+
+### Image Creation for Backend server
+1. Launch an Amazon Linux 2023 EC2 instance and attach created IAM EC2 role to it.
+2. Connect to instance using System Session Manager (SSM)
+3. Switch to EC2 user
+4. Install necessary components to run backend application
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+source ~/.bashrc
+```
+5. Install a compatible version of Node.js and make sure it's being used
+```bash
+nvm install 16
+nvm use 16
+```
+6. PM2 is a daemon process manager that will keep our node.js app running when we exit the instance or if it is rebooted. Install that as well
+```bash
+nvm install 16
+nvm use 16
+```
+7. Now we need to download our code from our S3 buckets into our instance. In the command below, replace BUCKET_NAME with the name of the bucket in which you have uploaded application code
+```bash
+cd ~/
+aws s3 cp s3://BUCKET_NAME/app-tier/ app-tier --recursive
+```
+8. Navigate to the app directory, install dependencies, and start the app with pm2
+```bash
+cd ~/app-tier
+npm install
+pm2 start index.js
+```
+9. To make sure the app is running correctly run the following:
+```bash
+pm2 list
+```
+> If you see a status of online, the app is running
+10. Also Run following commands, this will install mysql CLI which we need to use at the end to configure database.
+```bash
+sudo wget https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+sudo rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
+sudo yum install https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm -y
+sudo yum install mysql -y
+``` 
+11. Now create image from this instance
