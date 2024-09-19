@@ -42,7 +42,7 @@ nvm install 16
 nvm use 16
 ```
 > Run above commands one by one
-6. Now we need to download our web tier code form S3 bucket
+6. Now we need to download our web tier code form S3 bucket. Replace 'BUCKET_NAME' with created S3 bucket name.
 ```bash
 cd ~/
 aws s3 cp s3://BUCKET_NAME/web-tier/ web-tier --recursive
