@@ -165,4 +165,56 @@ sudo systemctl enable nginx
 ```bash
 chmod -R 755 /home/ec2-user
 ```
-
+### Connect to Backend servers using SSM and execute below steps in both servers:
+1. PM2 is just making sure our app stays running when we leave the SSM session. However, if the server is interrupted for some reason, we still want the app to start and keep running
+```bash
+pm2 startup
+```
+> After running above command you will see a message similar to this.
+```bash
+To setup the Startup Script, copy/paste the following command: sudo env PATH=$PATH:/home/ec2-user/.nvm/versions/node/v16.0.0/bin /home/ec2-user/.nvm/versions/node/v16.0.0/lib/node_modules/pm2/bin/pm2 startup systemd -u ec2-user —hp /home/ec2-user
+```
+> whatever message like this displayed in your terminal after **pm2 startup command**, you have to copy that and run that as a command
+2. After you run it, save the current list of node processes with the following command:
+```bash
+pm2 save
+```
+3. Open this file 'app-tier/DbConfig.js' and make required changes as shown below
+ * ![image](https://github.com/user-attachments/assets/3f6fd266-e189-4414-b4f7-c1081942ec46)
+4. Now you have to connect to database and add some data in it. From this step, no need to execute below steps on both backend servers. Only one server is enough
+5. Initiate your DB connection. In the following command, replace the RDS endpoint and the username, and then execute it in the terminal:
+```bash
+mysql -h CHANGE-TO-YOUR-RDS-ENDPOINT -u CHANGE-TO-USER-NAME -p
+```
+> You will then be prompted to type in your password. Once you input the password and hit enter, you should now be connected to your database.
+6. Create a database called webappdb with the following command
+```bash
+CREATE DATABASE webappdb; 
+```
+> You can verify that it was created correctly with the following command:
+```bash
+SHOW DATABASES;
+```
+7. Create a data table by first navigating to the database we just created:
+```bash
+USE webappdb;    
+```
+> Then, create the following transactions table by executing this create table command:
+```bash
+CREATE TABLE IF NOT EXISTS transactions(id INT NOT NULL
+AUTO_INCREMENT, amount DECIMAL(10,2), description
+VARCHAR(100), PRIMARY KEY(id));       
+```
+> Verify the table was created:
+```bash
+SHOW TABLES;     
+```
+8. Insert data into table for use/testing later:
+```bash
+INSERT INTO transactions (amount,description) VALUES ('400','groceries');   
+```
+> Verify that your data was added by executing the following command:
+```bash
+SELECT * FROM transactions;  
+```
+9. When finished, just type exit and hit enter to exit the MySQL client.
