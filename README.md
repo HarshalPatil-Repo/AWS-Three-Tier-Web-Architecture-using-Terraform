@@ -134,3 +134,35 @@ terraform plan
 terraform apply -auto-approve
 ```
 > Infrastructure creation will take around 15-20 minutes
+
+## Application Configuration
+
+### Connect to Frontend servers using SSM and execute below steps in both servers:
+1. Download nginx.conf file from our s3 bucket using below command
+```bash
+sudo aws s3 cp s3://BUCKET_NAME/nginx.conf .
+```
+> Replace bucket name with the one you have created
+2. Open downloaded nginx.conf file in 'vi editor' and copy internal load balancer dns as shown below:
+ * ![ReplaceCode](https://github.com/user-attachments/assets/d20de8b2-478f-4351-b81e-78b9d7e2937c)
+> Make sure to remove parenthesis
+3. First you have to remove existing nginx.conf file
+```bash
+cd /etc/nginx
+ls
+sudo rm nginx.conf
+```
+4. Go to directory where you have kept your modified nginx.conf file and copy to /etc/nginx
+```bash
+cp nginx.conf /etc/nginx
+```
+5. Now restart and enable nginx
+```bash
+sudo systemctl restart nginx
+sudo systemctl enable nginx
+```
+6. To make sure Nginx has permission to access our files execute this command:
+```bash
+chmod -R 755 /home/ec2-user
+```
+
