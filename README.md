@@ -218,3 +218,21 @@ INSERT INTO transactions (amount,description) VALUES ('400','groceries');
 SELECT * FROM transactions;  
 ```
 9. When finished, just type exit and hit enter to exit the MySQL client.
+
+
+## Testing Web Application
+
+To test the app, copy **internet facing load balancer DNS** and paste in browser. You should able to access the app and add or remove rows from list.
+
+
+## To Clean infrastruture
+
+1. Open terraform code and run below command in terminal, this will destroy terraform created resources
+```bash
+terraform destroy -auto-approve
+```
+> this will take 15-20 min
+2. Go to AWS Management Console > EC2 Section > AMI's Section. Now delete the created AMI's. Also go to the snapshots section and delete snapshots if any.
+
+
+
