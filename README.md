@@ -152,9 +152,9 @@ cd /etc/nginx
 ls
 sudo rm nginx.conf
 ```
-4. Go to directory where you have kept your modified nginx.conf file and copy to /etc/nginx
+4. Go to directory where you have kept your modified nginx.conf file and move to /etc/nginx
 ```bash
-cp nginx.conf /etc/nginx
+mv nginx.conf /etc/nginx
 ```
 5. Now restart and enable nginx
 ```bash
